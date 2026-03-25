@@ -49,7 +49,7 @@ const Signin = () => {
   return (
     <div className="row mt-4 justify-content-center">
       <div className="col-md-6 card shadow p-4">
-        <h2>sign In</h2>
+        <h2 className='text-warning'>sign In</h2>
         <form action="" onSubmit={submit} className='bg-dark'>
           {loading}
           {error}
@@ -60,7 +60,7 @@ const Signin = () => {
           <button className='btn btn-primary' type='submit'>
             sign in
           </button>
-          <p>Already have an account? <Link to="/signup">sign up</Link></p>
+          <p className='text-light'>Already have an account? <Link to="/signup">sign up</Link></p>
         </form>
       </div>
     </div>

@@ -44,7 +44,7 @@ const Addproduct = () => {
   return (
     <div className="row mt-4 justify-content-center card body">
       <div className="col-md-6 card shadow p-4">
-    <h2 className='text-dark'>Add Product</h2>
+    <h2 className='text-danger'>Add Product</h2>
     <form action="" onSubmit={submit}>
       {loading}
       {success}

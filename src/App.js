@@ -17,10 +17,10 @@ function App() {
         <h1 className='text-dark'> LA BICYCLETA ONLINE PURCHASING</h1> 
       </header>
       <nav>
-        <Link to='/' className='btn btn-dark m-2 text-decoration-underline'>Home</Link>
-        <Link to='/signup' className='btn btn-dark m-2 text-decoration-underline'>Signup</Link>
-        <Link to='/signin' className='btn btn-dark m-2 text-decoration-underline'>Signin</Link>
-        <Link to='/addproduct' className='btn btn-dark m-2 text-decoration-underline'>Add Product</Link>
+        <Link to='/' className='btn btn-dark m-2 text-decoration-underline '>Home</Link>
+        <Link to='/signup' className='btn btn-dark m-2 text-decoration-underline text-success'>Signup</Link>
+        <Link to='/signin' className='btn btn-dark m-2 text-decoration-underline text-warning'>Signin</Link>
+        <Link to='/addproduct' className='btn btn-dark m-2 text-decoration-underline text-danger'>Add Product</Link>
         
       </nav>
       <Routes>

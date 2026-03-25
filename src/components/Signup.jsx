@@ -44,7 +44,7 @@ const Signup = () => {
     return(
         <div className="row mt-4 justify-content-center bg-dark">
             <div className="col-md-6 card shadow p-4">
-                <h2>Sign Up</h2>
+                <h2 className="text-success">Sign Up</h2>
                 <form action="" onSubmit={submit} className="bg-dark">
                   . {loading}
                     {success}
@@ -60,7 +60,7 @@ const Signup = () => {
                     <button className="btn btn-primary"  type="submit">
                         sign up
                     </button>
-                    <p>Already have an account? <Link to="/signin"><i>sign in</i></Link></p>
+                    <p className="text-light">Already have an account? <Link to="/signin"><i>sign in</i></Link></p>
 
                 </form>
             </div>

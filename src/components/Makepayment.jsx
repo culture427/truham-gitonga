@@ -41,7 +41,7 @@ const Makepayment = () => {
         {message}
         {error}
         <input type="tel" placeholder='enter phone 254' className='btn btn-dark' value={phone}  onChange={(e) => setPhone(e.target.value)}/><br /><br />
-        <button type='submit' className='text-success bg-dark'>Make Payment</button>
+        <button type='submit' className='text-success bg-dark'>Lipa na pochi</button>
       </form>
     </div>
     </div>
