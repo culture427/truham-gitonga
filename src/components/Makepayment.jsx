@@ -1,4 +1,4 @@
- import axios from 'axios'
+import axios from 'axios'
 import React, { useState } from 'react'
 import { useLocation } from 'react-router-dom'
 
@@ -8,41 +8,63 @@ const Makepayment = () => {
     const [phone, setPhone,] = useState('')
     const [message, setMessage] = useState('')
     const [error, SetError] = useState('')
-    // function for makepayment
+
     const submit = async (e) => {
-        // preventing the default loading behaviour of a form
         e.preventDefault ()
-        // set message
         setMessage('please wait as we process...')
-        // connecting axios to flask api endpoint
         try {
-            // attaching user inputs to data variable
             const data = new FormData()
             data.append('phone', phone)
             data.append('amount', product.product_cost)
-            // posting data to the database
-            const response = await axios.post('http://gitongatruham.alwaysdata.net/api/mpesa_payment', data)
-            // update the message
+
+            const response = await axios.post(
+              'http://gitongatruham.alwaysdata.net/api/mpesa_payment', 
+              data
+            )
+
             setMessage('please complete the payment in your phone')
         } catch (error) {
             setMessage('')
             SetError(error.message)
         }
     }
+
   return (
-    <div className='col-md-12 justify-content-center mb-4 mt-4 row'>
-        <div className='col-md-6 card shadow p-8'>
-      <h1>Makepayment-Lipa na Mpesa</h1>
-      <img src= {img_url + product.product_photo} alt="" />
-      <p className='btn btn-success'>the product name is: {product.product_name}</p>
-      <p className='btn btn-warning'>the product description is: {product.product_description}</p>
-      <p className='btn btn-danger'>the product cost is: {product.product_cost}</p>
-      <form action="" onSubmit={submit}>
-        {message}
-        {error}
-        <input type="tel" placeholder='enter phone 254' className='btn btn-dark' value={phone}  onChange={(e) => setPhone(e.target.value)}/><br /><br />
-        <button type='submit' className='text-success bg-dark'>Lipa na pochi</button>
+    <div className='mpesa-page col-md-12 justify-content-center mb-4 mt-4 row'>
+
+        <div className='mpesa-card col-md-6 card shadow p-8'>
+
+      <h1 className='mpesa-title'> Make Payment - Lipa na M-Pesa</h1>
+
+      <div className='image-wrapper'>
+        <img src= {img_url + product.product_photo} alt="" />
+      </div>
+
+      <div className='product-tags'>
+        <p className='tag success'>Product: {product.product_name}</p>
+        <p className='tag warning'>Description: {product.product_description}</p>
+        <p className='tag danger'>Cost: {product.product_cost} KES</p>
+      </div>
+
+      <form action="" onSubmit={submit} className='mpesa-form'>
+
+        {message && <div className='msg success'>{message}</div>}
+        {error && <div className='msg error'>{error}</div>}
+
+        <input 
+          type="tel"
+          placeholder='Enter phone number (+254...)'
+          className='mpesa-input'
+          value={phone}
+          onChange={(e) => setPhone(e.target.value)}
+        />
+
+        <button type='submit' className='mpesa-btn'>
+           Lipa na M-Pesa
+        </button>
+
       </form>
+
     </div>
     </div>
   )
