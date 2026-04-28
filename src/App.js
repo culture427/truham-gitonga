@@ -1,48 +1,70 @@
-import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useState } from "react";
 
-import Addproduct from './components/Addproduct';
-import Getproduct from './components/Getproduct';
-import Makepayment from './components/Makepayment';
-import Signin from './components/Signin';
-import Signup from './components/Signup';
-import Footer from './components/Footer'; 
+import Addproduct from "./components/Addproduct";
+import Getproduct from "./components/Getproduct";
+import Makepayment from "./components/Makepayment";
+import Signin from "./components/Signin";
+import Signup from "./components/Signup";
+import Footer from "./components/Footer";
+import Dashboard from "./components/Dashboard";
+import Cart from "./components/Cart";
+import Orders from "./components/Orders";
+import Users from "./components/Users";
+import Payments from "./components/Payments";
+import Chat from "./components/Chat";
 
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './App.css';
+import CartProvider from "./components/CartContext";
+import MainLayout from "./layout/MainLayout";
+
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./App.css";
 
 function App() {
-  return (
-    <BrowserRouter>
-      <div className="App container-fluid bg-light min-vh-100 d-flex flex-column">
-        <header className="App-header bg-dark text-center py-3 shadow">
-          <span className='badge btn btn-light mb-2'>
-            <p className='text-dark m-0'>his imperial majesty present...</p>
-          </span>
-          <h1 className='text-white fw-bold'>
-            LA BICYCLETA ONLINE PURCHASING
-          </h1> 
-        </header>
-        <nav className="text-center my-3 p-2 bg-white shadow-sm rounded">
-          <Link to='/' className='btn btn-dark m-2'>Home</Link>
-          <Link to='/signup' className='btn btn-dark m-2 text-success'>Signup</Link>
-          <Link to='/signin' className='btn btn-dark m-2 text-warning'>Signin</Link>
-          <Link to='/addproduct' className='btn btn-dark m-2 text-danger'>Add Product</Link>
-        </nav>
+  const [showSplash, setShowSplash] = useState(true);
 
-        <div className="container py-3 flex-grow-1">
-          <Routes>
-            <Route path='/signup' element={<Signup />} /> 
-            <Route path='/signin' element={<Signin />} />
-            <Route path='/addproduct' element={<Addproduct />} />
-            <Route path='/' element={<Getproduct />} />
-            <Route path='/makepayment' element={<Makepayment />} />
-          </Routes>
+  if (showSplash) {
+    return (
+      <div className="splash-screen" onClick={() => setShowSplash(false)}>
+        <div className="splash-content">
+          <div className="app-icon">
+            <span className="b1">B</span><span className="b2">B</span>
+          </div>
+          <div className="app-description">Bicycle Brejin</div>
         </div>
-
-        <Footer />
-
       </div>
-    </BrowserRouter>
+    );
+  }
+
+  return (
+    <CartProvider>
+      <BrowserRouter>
+        <div className="App bg-dark min-vh-100 d-flex flex-column">
+
+          <Routes>
+
+            <Route element={<MainLayout />}>
+              <Route path="/" element={<Getproduct />} />
+              <Route path="/cart" element={<Cart />} />
+              <Route path="/addproduct" element={<Addproduct />} />
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/chat" element={<Chat />} />
+              <Route path="/orders" element={<Orders />} />
+              <Route path="/users" element={<Users />} />
+              <Route path="/payments" element={<Payments />} />
+              <Route path="/makepayment" element={<Makepayment />} />
+            </Route>
+
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/signin" element={<Signin />} />
+
+          </Routes>
+
+          <Footer />
+
+        </div>
+      </BrowserRouter>
+    </CartProvider>
   );
 }
 

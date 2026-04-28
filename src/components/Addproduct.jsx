@@ -10,16 +10,12 @@ const Addproduct = () => {
   const [product_photo, setProduct_photo] = useState(null)
   const [preview, setPreview] = useState('')
 
-  // UI states
+
   const [loading, setLoading] = useState('')
   const [success, setSuccess] = useState('')
   const [error, setError] = useState('')
-
-  // Submit function
   const submit = async (e) => {
     e.preventDefault()
-
-    // Validation
     if (!product_name || !product_cost || !product_photo) {
       setError("Please fill all required fields")
       return

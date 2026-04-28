@@ -35,58 +35,66 @@ const Signup = () => {
         }
     }
     return(
-        <div className="row mt-5 justify-content-center">
-            <div className="col-md-5 card shadow p-4">
-                <h2 className="text-center text-primary mb-3">Sign Up</h2>
+        <div className="signup-container">
+            <div className="signup-card">
+                <h2 className="signup-title">Create Account</h2>
 
-                <form action="" onSubmit={submit}>
+                <form action="" onSubmit={submit} className="signup-form">
 
-                  <p className="text-info text-center">{loading}</p>
-                  <p className="text-success text-center">{success}</p>
-                  <p className="text-danger text-center">{error}</p>
+                  {loading && <div className="alert-custom info">{loading}</div>}
+                  {success && <div className="alert-custom success">{success}</div>}
+                  {error && <div className="alert-custom danger">{error}</div>}
 
+                  <div className="input-group">
                     <input 
                         type="text" 
-                        placeholder="enter your username" 
-                        className="form-control mb-3" 
+                        placeholder="Enter your username" 
+                        className="signup-input" 
                         value={username} 
                         onChange={(e) => SetUsername(e.target.value)}
                         required
                     />
+                  </div>
 
+                  <div className="input-group">
                     <input 
-                        type=" email" 
-                        placeholder="enter email"  
-                        className="form-control mb-3" 
+                        type="email" 
+                        placeholder="Enter email"  
+                        className="signup-input" 
                         value={email} 
                         onChange={(e) => SetEmail(e.target.value)}
                         required
-                    /> 
+                    />
+                  </div>
 
+                  <div className="input-group">
                     <input 
                         type="password" 
-                        placeholder="enter password"  
-                        className="form-control mb-3" 
+                        placeholder="Enter password"  
+                        className="signup-input" 
                         onChange={(e) => SetPassword(e.target.value)}
                         required
                     />
+                  </div>
 
+                  <div className="input-group">
                     <input 
                         type="tel" 
-                        placeholder="enter phone" 
-                        className="form-control mb-3" 
+                        placeholder="Enter phone" 
+                        className="signup-input" 
                         value={phone} 
                         onChange={(e) => SetPhone(e.target.value)}
                         required 
                     />
+                  </div>
 
-                    <button className="btn btn-primary w-100" type="submit">
-                        sign up
+                    <button className="signup-btn" type="submit">
+                        Sign Up
                     </button>
 
-                    <p className="text-center mt-3">
+                    <p className="signup-link">
                         Already have an account? 
-                        <Link to="/signin"><i> sign in</i></Link>
+                        <Link to="/signin">Sign in</Link>
                     </p>
 
                 </form>

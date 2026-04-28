@@ -47,20 +47,35 @@ const Signin = () => {
         }
    }
   return (
-    <div className="row mt-4 justify-content-center">
-      <div className="col-md-6 card shadow p-4">
-        <h2 className='text-warning'>sign In</h2>
-        <form action="" onSubmit={submit} className='bg-dark'>
-          {loading}
-          {error}
-          <input type="email" placeholder='enter your email' className='form-control' value={email} onChange={(e) => SetEmail(e.target.value)}
-            required /><br />
-          <input type="password" placeholder='enter your password' className='form-control' onChange={(e) => SetPassword(e.target.value)}
-            required /><br />
-          <button className='btn btn-primary' type='submit'>
-            sign in
+    <div className="signin-container">
+      <div className="signin-card">
+        <h2 className='signin-title'>Welcome Back</h2>
+        <form action="" onSubmit={submit} className='signin-form'>
+          {loading && <div className="alert-custom info">{loading}</div>}
+          {error && <div className="alert-custom danger">{error}</div>}
+          <div className="input-group">
+            <input 
+              type="email" 
+              placeholder='Enter your email' 
+              className='signin-input' 
+              value={email} 
+              onChange={(e) => SetEmail(e.target.value)}
+              required 
+            />
+          </div>
+          <div className="input-group">
+            <input 
+              type="password" 
+              placeholder='Enter your password' 
+              className='signin-input' 
+              onChange={(e) => SetPassword(e.target.value)}
+              required 
+            />
+          </div>
+          <button className='signin-btn' type='submit'>
+            Sign In
           </button>
-          <p className='text-light'>Already have an account? <Link to="/signup">sign up</Link></p>
+          <p className='signin-link'>Don't have an account? <Link to="/signup">Sign up</Link></p>
         </form>
       </div>
     </div>
