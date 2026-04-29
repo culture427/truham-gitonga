@@ -1,6 +1,9 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const AboutUs = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="about-container">
       <section className="about-hero">
@@ -45,7 +48,7 @@ const AboutUs = () => {
           Whether you're commuting, training, or exploring, we have the perfect
           bike for you.
         </p>
-        <button className="shop-button">Shop Now</button>
+        <button className="shop-button" onClick={() => navigate('/')}>Shop Now</button>
       </section>
     </div>
   );

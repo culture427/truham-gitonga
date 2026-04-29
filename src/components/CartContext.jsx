@@ -7,19 +7,23 @@ export const useCart = () => useContext(CartContext);
 export default function CartProvider({ children }) {
   const [cart, setCart] = useState([]);
 
+  const getProductId = (product) => product.id || product._id || product.product_name;
+
   const addToCart = (product) => {
+    const productId = getProductId(product);
+
     setCart((prev) => {
-      const exists = prev.find((item) => item.id === product.id);
+      const exists = prev.find((item) => item.id === productId);
 
       if (exists) {
         return prev.map((item) =>
-          item.id === product.id
+          item.id === productId
             ? { ...item, quantity: item.quantity + 1 }
             : item
         );
       }
 
-      return [...prev, { ...product, quantity: 1 }];
+      return [...prev, { ...product, id: productId, quantity: 1 }];
     });
   };
 

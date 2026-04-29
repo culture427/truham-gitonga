@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useState } from "react";
 
 import Addproduct from "./components/Addproduct";
+import AboutUs from "./components/AboutUs";
 import Getproduct from "./components/Getproduct";
 import Makepayment from "./components/Makepayment";
 import Signin from "./components/Signin";
@@ -47,6 +48,7 @@ function App() {
               <Route path="/" element={<Getproduct />} />
               <Route path="/cart" element={<Cart />} />
               <Route path="/addproduct" element={<Addproduct />} />
+              <Route path="/about" element={<AboutUs />} />
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/chat" element={<Chat />} />
               <Route path="/orders" element={<Orders />} />

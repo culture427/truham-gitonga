@@ -41,7 +41,12 @@ const Dashboard = () => {
           </div>
 
           <div style={styles.card}>
-            <h3>Revenue</h3>
+            <h3>Users</h3>
+            <p>18</p>
+          </div>
+
+          <div style={styles.card}>
+            <h3>Payments</h3>
             <p>KES 45,000</p>
           </div>
         </div>
@@ -57,7 +62,7 @@ const Dashboard = () => {
           </thead>
           <tbody>
             {products.map((p) => (
-              <tr key={p.id}>
+              <tr key={p.id || p._id || p.product_name}>
                 <td>{p.product_name}</td>
                 <td>KES {p.product_cost}</td>
               </tr>
@@ -71,37 +76,46 @@ const Dashboard = () => {
 
 const styles = {
   sidebar: {
-    width: "200px",
-    height: "100vh",
-    background: "#222",
+    width: "220px",
+    minHeight: "100vh",
+    background: "#111827",
     color: "#fff",
-    padding: "20px",
+    padding: "24px",
   },
   menu: {
     listStyle: "none",
     padding: 0,
+    marginTop: "24px",
   },
   main: {
     flex: 1,
-    padding: "20px",
-    background: "#f4f4f4",
+    padding: "24px",
+    background: "#0f172a",
+    color: "#f8fafc",
   },
   statsContainer: {
     display: "flex",
+    flexWrap: "wrap",
     gap: "20px",
-    marginBottom: "20px",
+    marginBottom: "24px",
   },
   card: {
-    background: "#fff",
-    padding: "20px",
-    borderRadius: "8px",
+    background: "#1f2937",
+    padding: "24px",
+    borderRadius: "16px",
     flex: 1,
+    minWidth: "180px",
     textAlign: "center",
+    color: "#f8fafc",
+    boxShadow: "0 20px 40px rgba(0,0,0,0.15)",
   },
   table: {
     width: "100%",
     borderCollapse: "collapse",
-    background: "#fff",
+    background: "#111827",
+    color: "#f8fafc",
+    borderRadius: "16px",
+    overflow: "hidden",
   },
 };
 

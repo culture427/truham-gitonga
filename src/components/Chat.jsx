@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 
 const contacts = [
   { id: 1, name: 'John Mwangi', status: 'Online' },
@@ -25,22 +25,47 @@ const Chat = () => {
   const [selectedId, setSelectedId] = useState(contacts[0].id);
   const [chatInput, setChatInput] = useState('');
   const [conversations, setConversations] = useState(initialConversations);
+  const messagesEndRef = useRef(null);
 
   const selectedContact = contacts.find((contact) => contact.id === selectedId);
   const messages = conversations[selectedId] || [];
 
   useEffect(() => {
-    const activeSection = document.querySelector('.content-area');
-    if (activeSection) {
-      activeSection.scrollTop = 0;
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
     }
-  }, [selectedId]);
+  }, [messages, selectedId]);
+
+  const getBotReply = (text) => {
+    const lower = text.toLowerCase();
+
+    if (/price|cost|how much|charge/.test(lower)) {
+      return 'Our bike prices vary by model and features. Tell me which bike you like and I will give you the best price.';
+    }
+    if (/delivery|ship|shipping|nairobi/.test(lower)) {
+      return 'Yes, we offer delivery across Nairobi. Share your delivery area and we will confirm the cost.';
+    }
+    if (/mpesa|pay|payment|card/.test(lower)) {
+      return 'You can pay with M-Pesa, card, or cash on delivery. I can help you finalize the order when you are ready.';
+    }
+    if (/order|buy|purchase|checkout/.test(lower)) {
+      return 'Great choice! Add the bike to your cart and head to checkout. I can also help you with the payment steps.';
+    }
+    if (/hello|hi|hey|good morning|good afternoon|good evening/.test(lower)) {
+      return 'Hello! I am here to help you find the perfect bicycle. What are you looking for today?';
+    }
+    if (/mountain|road|hybrid|electric|folding|cruiser|bmx/.test(lower)) {
+      return 'We have multiple bike types available. Let me know if you want details on mountain, road, hybrid, or electric bikes.';
+    }
+    return 'Thanks for your message. Can you tell me which bike or feature you want to know more about?';
+  };
 
   const sendMessage = () => {
     const text = chatInput.trim();
     if (!text) return;
 
-    const newMessage = { from: 'me', text, time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) };
+    const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    const newMessage = { from: 'me', text, time };
     setConversations((prev) => ({
       ...prev,
       [selectedId]: [...(prev[selectedId] || []), newMessage],
@@ -50,14 +75,14 @@ const Chat = () => {
     setTimeout(() => {
       const reply = {
         from: 'them',
-        text: 'Thanks for your question! I will get back to you shortly.',
+        text: getBotReply(text),
         time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
       };
       setConversations((prev) => ({
         ...prev,
         [selectedId]: [...(prev[selectedId] || []), reply],
       }));
-    }, 1200);
+    }, 900);
   };
 
   return (
@@ -101,6 +126,7 @@ const Chat = () => {
                 </div>
               </div>
             ))}
+            <div ref={messagesEndRef} />
           </div>
 
           <div className="chat-input-row">

@@ -8,6 +8,7 @@ const Getproduct = () => {
   const [loading, setLoading] = useState('')
   const [error, setError] = useState('')
   const [search, setSearch] = useState('')
+  const [selectedProduct, setSelectedProduct] = useState(null)
 
   const { addToCart } = useCart()
   const navigate = useNavigate()
@@ -96,18 +97,23 @@ const Getproduct = () => {
       <div className="product-grid">
 
         {filteredProducts.map((product) => (
-          <div className="product-card" key={product.id}>
+          <div className="product-card" key={product.id || product._id || product.product_name}>
 
             {/* IMAGE */}
-            <img
-              src={product.product_photo.startsWith('http') ? product.product_photo : img_url + product.product_photo}
-              alt={product.product_name}
-              className="product-image"
-              onError={(e) =>
-                (e.target.src =
-                  'https://via.placeholder.com/150')
-              }
-            />
+            <div className="product-image-card" onClick={() => setSelectedProduct(product)}>
+              <img
+                src={product.product_photo.startsWith('http') ? product.product_photo : img_url + product.product_photo}
+                alt={product.product_name}
+                className="product-image"
+                onError={(e) =>
+                  (e.target.src =
+                    'https://via.placeholder.com/150')
+                }
+              />
+              <div className="image-overlay">
+                <span>Tap for details</span>
+              </div>
+            </div>
 
             {/* DETAILS */}
             <div className="product-info">
@@ -117,7 +123,10 @@ const Getproduct = () => {
               </h5>
 
               <p className="product-desc">
-                {getDescription(product.product_name)}
+                {getDescription(product.product_name).split('. ')[0]}.{' '}
+                <button className="find-more-btn" onClick={() => setSelectedProduct(product)}>
+                  Find Out More
+                </button>
               </p>
 
               <p className="product-price">
@@ -157,6 +166,35 @@ const Getproduct = () => {
         ))}
 
       </div>
+
+      {selectedProduct && (
+        <div className="product-modal-overlay" onClick={() => setSelectedProduct(null)}>
+          <div className="product-modal" onClick={(e) => e.stopPropagation()}>
+            <button className="modal-close" onClick={() => setSelectedProduct(null)}>
+              ×
+            </button>
+            <div className="modal-image-wrapper">
+              <img
+                src={selectedProduct.product_photo.startsWith('http') ? selectedProduct.product_photo : img_url + selectedProduct.product_photo}
+                alt={selectedProduct.product_name}
+              />
+            </div>
+            <div className="modal-details">
+              <h2>{selectedProduct.product_name}</h2>
+              <p>{getDescription(selectedProduct.product_name)}</p>
+              <p><strong>Price:</strong> Ksh {selectedProduct.product_cost}</p>
+              <div className="modal-actions">
+                <button className="btn btn-warning" onClick={() => { addToCart(selectedProduct); setSelectedProduct(null); }}>
+                  Add to Cart
+                </button>
+                <button className="btn btn-dark" onClick={() => navigate('/makepayment', { state: { product: selectedProduct } })}>
+                  Buy Now
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

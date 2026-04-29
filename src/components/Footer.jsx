@@ -1,13 +1,15 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
+
 const Footer = () => {
   return (
-    <footer className="bg-light text-dark text-center p-3 mt-4" >
-      <p><marquee behavior="" direction="left"> His Imperials' Shop. All rights reserved</marquee>© {new Date().getFullYear()}.</p>
+    <footer className="footer">
+      <p className="footer-note">His Imperials' Shop. All rights reserved © {new Date().getFullYear()}.</p>
 
-      <div>
-        <a href="#" className="text-white me-3">Home</a>
-        <a href="#" className="text-white me-3">Products</a>
-        <a href="#" className="text-white">Contact</a>
+      <div className="footer-links">
+        <Link to="/" className="footer-link">Home</Link>
+        <Link to="/about" className="footer-link">About</Link>
+        <Link to="/chat" className="footer-link">Contact</Link>
       </div>
     </footer>
   )
